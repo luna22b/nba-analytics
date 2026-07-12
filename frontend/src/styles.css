@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@import "@fontsource/manrope";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  font-family: "Manrope";
+  margin: 0;
+}
