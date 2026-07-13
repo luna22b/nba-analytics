@@ -34,32 +34,43 @@ export async function fetchAllPlayerRefs() {
 
 export async function fetchPlayerDetails(refs: { $ref: string }[]) {
   const players = [];
-  const batchSize = 1;
 
-  for (let i = 0; i < refs.length; i += batchSize) {
-    const batch = refs.slice(i, i + batchSize);
+  for (const ref of refs) {
+    try {
+      const res = await axios.get(ref.$ref);
 
-    const responses = await Promise.all(
-      batch.map(async (ref) => {
-        try {
-          return await axios.get(ref.$ref);
-        } catch (err) {
-          console.log(`Failed to fetch ${ref.$ref}`);
-          return null;
-        }
-      }),
-    );
+      players.push(res.data);
 
-    players.push(
-      ...responses.filter((res) => res !== null).map((res) => res!.data),
-    );
-
-    console.log(
-      `Fetched ${Math.min(i + batchSize, refs.length)} / ${refs.length}`,
-    );
+      console.log(`Fetched ${players.length} / ${refs.length}`);
+    } catch (err) {
+      console.log(`Failed to fetch ${ref.$ref}`);
+    }
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 
   return players;
+}
+
+export async function fetchPlayerStats(players: any[]) {
+  const stats = [];
+
+  for (const player of players) {
+    if (!player.statistics?.$ref) continue;
+
+    try {
+      const res = await axios.get(player.statistics.$ref);
+
+      stats.push({
+        playerId: player.id,
+        data: res.data,
+      });
+    } catch (err) {
+      console.log(`Failed stats for ${player.fullName}`);
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+
+  return stats;
 }
