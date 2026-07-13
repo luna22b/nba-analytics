@@ -34,8 +34,6 @@ model Player {
   birthState      String?
   birthCountry    String?
 
-  college         String?
-
   headshotUrl     String?
 
   active          Boolean
@@ -45,10 +43,59 @@ model Player {
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  playerStats PlayerStats[]
+}
+model Team {
+  id              String   @id
+  name            String
+  displayName     String?
+  abbreviation    String?
+
+  location        String?
+
+  logoUrl         String?
+
+  color           String?
+  alternateColor  String?
+
+  players         Player[]
+  stats           TeamStat?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
 
-model Team {
-  id        String @id
-  name      String
-  players   Player[]
+model TeamStat {
+  id String @id @default(cuid())
+
+  teamId String @unique
+  team   Team @relation(fields: [teamId], references: [id])
+
+  ppg Float?
+  fgPct Float?
+  threePointPct Float?
+
+  apg Float?
+  rpg Float?
+
+  spg Float?
+  bpg Float?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PlayerStats {
+  id String @id @default(cuid())
+
+  playerId String @unique
+  player Player @relation(fields: [playerId], references: [id])
+
+  ppg Float?
+  rpg Float?
+  apg Float?
+
+  fgPct Float?
+  threePointPct Float?
 }
