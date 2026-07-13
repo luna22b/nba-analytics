@@ -19,6 +19,7 @@
   },
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "seed:players": "tsx src/scripts/seedPlayers.ts"
+    "seed:players": "tsx src/scripts/seedPlayers.ts",
+    "seed:teams": "tsx src/scripts/seedTeams.ts"
   }
 }
