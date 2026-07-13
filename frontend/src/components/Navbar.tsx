@@ -13,10 +13,10 @@ export default function Navbar() {
         </div>
         <ul className="hidden sm:flex flex-row gap-4 cursor-pointer font-bold">
           <li>
-            <Link to="/players">Players</Link>
+            <Link to="/games">Games</Link>
           </li>
           <li>
-            <Link to="/games">Games</Link>
+            <Link to="/players">Players</Link>
           </li>
           <li>
             <Link to="/teams">Teams</Link>
