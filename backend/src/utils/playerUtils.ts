@@ -16,12 +16,14 @@ export function extractPlayerStats(stat: any) {
 
     ppg: getStat("avgPoints"),
 
-    apg: getStat("assists"),
+    apg: getStat("avgAssists"),
 
     fgPct: getStat("fieldGoalPct"),
 
-    rpg: getStat("offensiveRebounds"),
+    rpg: getStat("avgOffensiveRebounds"),
 
     threePointPct: getStat("threePointPct"),
+
+    topg: getStat("avgTurnovers"),
   };
 }
