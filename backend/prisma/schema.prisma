@@ -98,4 +98,5 @@ model PlayerStats {
 
   fgPct Float?
   threePointPct Float?
+  topg Float?
 }
