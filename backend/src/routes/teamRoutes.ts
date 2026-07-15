@@ -19,4 +19,33 @@ router.get("/teams", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/teams/:id", async (req: Request, res: Response) => {
+  try {
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+
+    const specificTeam = await prisma.team.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        stats: true,
+        players: {
+          include: {
+            playerStats: true,
+          },
+        },
+      },
+    });
+
+    if (!specificTeam) {
+      return res.status(404).json({ error: "Team not found" });
+    }
+
+    return res.json(specificTeam);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Failed to fetch team" });
+  }
+});
+
 export default router;
