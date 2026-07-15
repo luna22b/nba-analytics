@@ -140,6 +140,9 @@ async function main() {
         ppg: stat.ppg,
         fgPct: stat.fgPct,
         threePointPct: stat.threePointPct,
+        apg: stat.apg,
+        rpg: stat.rpg,
+        topg: stat.topg,
       },
 
       create: {
@@ -147,6 +150,9 @@ async function main() {
         ppg: stat.ppg,
         fgPct: stat.fgPct,
         threePointPct: stat.threePointPct,
+        apg: stat.apg,
+        rpg: stat.rpg,
+        topg: stat.topg,
       },
     });
   }
