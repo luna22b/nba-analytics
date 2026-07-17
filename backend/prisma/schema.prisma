@@ -62,6 +62,9 @@ model Team {
   players         Player[]
   stats           TeamStat?
 
+  homeGames       Game[] @relation("HomeGames")
+  awayGames       Game[] @relation("AwayGames")
+
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
@@ -99,4 +102,34 @@ model PlayerStats {
   fgPct Float?
   threePointPct Float?
   topg Float?
+}
+
+model Game {
+  id            String   @id
+  date          DateTime
+
+  homeTeamId    String
+  awayTeamId    String
+
+  homeTeam      Team @relation("HomeGames", fields: [homeTeamId], references: [id])
+  awayTeam      Team @relation("AwayGames", fields: [awayTeamId], references: [id])
+
+  status        String  
+  season        Int
+  seasonType    String  
+
+  venue         String?
+  city          String?
+  state         String?
+
+  predictedWinnerId String?
+  homeWinProbability Float?
+  awayWinProbability Float?
+
+  homeScore     Int?
+  awayScore     Int?
+  winnerId      String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
