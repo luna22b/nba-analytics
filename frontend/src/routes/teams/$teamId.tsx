@@ -13,7 +13,7 @@ function RouteComponent() {
   const team = Route.useLoaderData();
   const navigate = useNavigate();
 
-  const stats = team.stats?.[0];
+  const stats = team.stats;
 
   return (
     <div>
@@ -88,11 +88,11 @@ function RouteComponent() {
               </div>
 
               <div className="flex gap-6">
-                <PlayerStat label="PPG" value={player.playerStats?.[0]?.ppg} />
+                <PlayerStat label="PPG" value={player.playerStats?.ppg} />
 
-                <PlayerStat label="RPG" value={player.playerStats?.[0]?.rpg} />
+                <PlayerStat label="RPG" value={player.playerStats?.rpg} />
 
-                <PlayerStat label="APG" value={player.playerStats?.[0]?.apg} />
+                <PlayerStat label="APG" value={player.playerStats?.apg} />
               </div>
             </div>
           ))}

@@ -50,21 +50,21 @@ function RouteComponent() {
               <div>
                 <p className="text-sm text-gray-500">PPG</p>
                 <p className="font-bold">
-                  {team.stats?.[0]?.ppg?.toFixed(1) ?? "--"}
+                  {team.stats?.ppg?.toFixed(1) ?? "--"}
                 </p>
               </div>
 
               <div>
                 <p className="text-sm text-gray-500">FG%</p>
                 <p className="font-bold">
-                  {team.stats?.[0]?.fgPct?.toFixed(1) ?? "--"}%
+                  {team.stats?.fgPct?.toFixed(1) ?? "--"}%
                 </p>
               </div>
 
               <div>
                 <p className="text-sm text-gray-500">3P%</p>
                 <p className="font-bold">
-                  {team.stats?.[0]?.threePointPct?.toFixed(1) ?? "--"}%
+                  {team.stats?.threePointPct?.toFixed(1) ?? "--"}%
                 </p>
               </div>
             </div>
