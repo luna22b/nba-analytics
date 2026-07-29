@@ -13,6 +13,8 @@ function RouteComponent() {
   const team = Route.useLoaderData();
   const navigate = useNavigate();
 
+  const stats = team.stats?.[0];
+
   return (
     <div>
       <div className="rounded-4xl shadow-md border p-6 bg-white h-40 w-11/12 mx-auto mt-20 max-w-3xl">
@@ -34,36 +36,25 @@ function RouteComponent() {
 
       <div className="rounded-4xl shadow-md border p-6 bg-white h-102 w-11/12 mx-auto mt-10 max-w-3xl md:h-72">
         <div className="text-[oklch(0.5_0.015_260)]">Season Averages</div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-4 ">
-          <div className="bg-[oklch(0.96_0.005_80)] rounded-2xl flex flex-col items-center justify-center h-20">
-            <p className="text-sm text-gray-500">Points / Game</p>
-            <p className="text-2xl">{team.stats.ppg.toFixed(1)}</p>
-          </div>
 
-          <div className="bg-[oklch(0.96_0.005_80)] rounded-2xl flex flex-col items-center justify-center h-20">
-            <p className="text-sm text-gray-500">Field Goal %</p>
-            <p className="text-2xl">{team.stats.fgPct.toFixed(1)}%</p>
-          </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-4">
+          <StatCard label="Points / Game" value={stats?.ppg?.toFixed(1)} />
 
-          <div className="bg-[oklch(0.96_0.005_80)] rounded-2xl flex flex-col items-center justify-center h-20">
-            <p className="text-sm text-gray-500">Three-Point %</p>
-            <p className="text-2xl">{team.stats.threePointPct.toFixed(1)}</p>
-          </div>
+          <StatCard
+            label="Field Goal %"
+            value={`${stats?.fgPct?.toFixed(1) ?? "--"}%`}
+          />
 
-          <div className="bg-[oklch(0.96_0.005_80)] rounded-2xl flex flex-col items-center justify-center h-20">
-            <p className="text-sm text-gray-500">Rebounds</p>
-            <p className="text-2xl">{team.stats.rpg.toFixed(1)}</p>
-          </div>
+          <StatCard
+            label="Three-Point %"
+            value={`${stats?.threePointPct?.toFixed(1) ?? "--"}%`}
+          />
 
-          <div className="bg-[oklch(0.96_0.005_80)] rounded-2xl flex flex-col items-center justify-center h-20">
-            <p className="text-sm text-gray-500">Steals</p>
-            <p className="text-2xl">{team.stats.spg.toFixed(1)}</p>
-          </div>
+          <StatCard label="Rebounds" value={stats?.rpg?.toFixed(1)} />
 
-          <div className="bg-[oklch(0.96_0.005_80)] rounded-2xl flex flex-col items-center justify-center h-20">
-            <p className="text-sm text-gray-500">Blocks</p>
-            <p className="text-2xl">{team.stats.bpg.toFixed(1)}</p>
-          </div>
+          <StatCard label="Steals" value={stats?.spg?.toFixed(1)} />
+
+          <StatCard label="Blocks" value={stats?.bpg?.toFixed(1)} />
         </div>
       </div>
 
@@ -71,6 +62,7 @@ function RouteComponent() {
         <div className="text-[oklch(0.5_0.015_260)]">
           Roster ({team.players.length})
         </div>
+
         <div>
           {team.players.map((player: any) => (
             <div
@@ -89,38 +81,42 @@ function RouteComponent() {
                 <p className="font-bold">
                   {player.firstName} {player.lastName}
                 </p>
+
                 <p className="text-[oklch(0.5_0.015_260)]">
-                  #{player.jerseyNumber ? player.jerseyNumber : "??"} ·{" "}
-                  {player.position}
+                  #{player.jerseyNumber ?? "??"} · {player.position ?? "--"}
                 </p>
               </div>
 
               <div className="flex gap-6">
-                <div className="w-14 text-center">
-                  <p className="text-xs text-[oklch(0.5_0.015_260)] uppercase">
-                    PPG
-                  </p>
-                  <p>{player.playerStats[0]?.ppg?.toFixed(1) ?? "--"}</p>
-                </div>
+                <PlayerStat label="PPG" value={player.playerStats?.[0]?.ppg} />
 
-                <div className="w-14 text-center">
-                  <p className="text-xs text-[oklch(0.5_0.015_260)] uppercase">
-                    RPG
-                  </p>
-                  <p>{player.playerStats[0]?.rpg?.toFixed(1) ?? "--"}</p>
-                </div>
+                <PlayerStat label="RPG" value={player.playerStats?.[0]?.rpg} />
 
-                <div className="w-14 text-center">
-                  <p className="text-xs text-[oklch(0.5_0.015_260)] uppercase">
-                    APG
-                  </p>
-                  <p>{player.playerStats[0]?.apg?.toFixed(1) ?? "--"}</p>
-                </div>
+                <PlayerStat label="APG" value={player.playerStats?.[0]?.apg} />
               </div>
             </div>
           ))}
         </div>
       </div>
+    </div>
+  );
+}
+
+function StatCard({ label, value }: { label: string; value?: string }) {
+  return (
+    <div className="bg-[oklch(0.96_0.005_80)] rounded-2xl flex flex-col items-center justify-center h-20">
+      <p className="text-sm text-gray-500">{label}</p>
+      <p className="text-2xl">{value ?? "--"}</p>
+    </div>
+  );
+}
+
+function PlayerStat({ label, value }: { label: string; value?: number }) {
+  return (
+    <div className="w-14 text-center">
+      <p className="text-xs text-[oklch(0.5_0.015_260)] uppercase">{label}</p>
+
+      <p>{value !== null && value !== undefined ? value.toFixed(1) : "--"}</p>
     </div>
   );
 }
