@@ -19,3 +19,8 @@ export async function getSpecificPlayer(playerId: string) {
   const res = await axios.get(`http://localhost:5000/api/players/${playerId}`);
   return res.data;
 }
+
+export async function getGames() {
+  const res = await axios.get("http://localhost:5000/api/games");
+  return res.data;
+}

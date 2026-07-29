@@ -40,10 +40,11 @@ export async function fetchPlayerDetails(refs: { $ref: string }[]) {
       const res = await axios.get(ref.$ref);
 
       players.push(res.data);
-
-      console.log(`Fetched ${players.length} / ${refs.length}`);
     } catch (err) {
-      console.log(`Failed to fetch ${ref.$ref}`);
+      console.error({
+        message: `Failed to fetch ${ref.$ref}`,
+        error: err instanceof Error ? err.message : err,
+      });
     }
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -66,7 +67,10 @@ export async function fetchPlayerStats(players: any[]) {
         data: res.data,
       });
     } catch (err) {
-      console.log(`Failed stats for ${player.fullName}`);
+      console.error(
+        `Failed stats for ${player.fullName}:`,
+        err instanceof Error ? err.message : err,
+      );
     }
 
     await new Promise((resolve) => setTimeout(resolve, 1000));

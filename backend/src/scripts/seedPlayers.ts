@@ -12,23 +12,13 @@ const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  console.log("Fetching player references...");
-
   const refs = await fetchAllPlayerRefs();
 
-  console.log(`Found ${refs.length} players`);
-
-  console.log("Fetching player details...");
-
   const players = await fetchPlayerDetails(refs);
-
-  console.log(`Fetched ${players.length} player details`);
 
   const stats = await fetchPlayerStats(players);
 
   const cleanedStats = stats.map(extractPlayerStats);
-
-  console.log("Saving players to database...");
 
   for (const player of players) {
     const teamId = player.team ? extractTeamId(player.team.$ref) : null;
@@ -126,10 +116,6 @@ async function main() {
     });
   }
 
-  console.log("Finished saving players!");
-
-  console.log("Saving player stats...");
-
   for (const stat of cleanedStats) {
     await prisma.playerStats.upsert({
       where: {
@@ -156,8 +142,6 @@ async function main() {
       },
     });
   }
-
-  console.log("Finished saving stats!");
 }
 
 main()

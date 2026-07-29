@@ -43,7 +43,11 @@ export async function fetchTeamDetails(refs: { $ref: string }[]) {
         try {
           return await axios.get(ref.$ref);
         } catch (err) {
-          console.log(`Failed to fetch ${ref.$ref}`);
+          console.error(
+            `Failed to fetch ${ref.$ref}:`,
+            err instanceof Error ? err.message : err,
+          );
+
           return null;
         }
       }),
@@ -51,10 +55,6 @@ export async function fetchTeamDetails(refs: { $ref: string }[]) {
 
     teams.push(
       ...responses.filter((res) => res !== null).map((res) => res!.data),
-    );
-
-    console.log(
-      `Fetched ${Math.min(i + batchSize, refs.length)} / ${refs.length}`,
     );
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -76,10 +76,11 @@ export async function fetchTeamStats(teams: any[]) {
         teamId: team.id,
         data: res.data,
       });
-
-      console.log(`Fetched stats for ${team.name}`);
     } catch (err) {
-      console.log(`Failed stats for ${team.name}`);
+      console.error(
+        `Failed stats for ${team.name}:`,
+        err instanceof Error ? err.message : err,
+      );
     }
 
     await new Promise((resolve) => setTimeout(resolve, 1000));

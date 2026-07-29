@@ -122,10 +122,6 @@ model Game {
   city          String?
   state         String?
 
-  predictedWinnerId String?
-  homeWinProbability Float?
-  awayWinProbability Float?
-
   homeScore     Int?
   awayScore     Int?
   winnerId      String?

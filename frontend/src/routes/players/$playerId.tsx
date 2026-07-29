@@ -11,7 +11,6 @@ export const Route = createFileRoute("/players/$playerId")({
 
 function RouteComponent() {
   const player = Route.useLoaderData();
-  console.log(player);
 
   const stats = player.playerStats?.[0];
 
@@ -103,17 +102,11 @@ function RouteComponent() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
+      <div className="grid grid-cols-1 gap-5 mt-8">
         <div className="rounded-4xl border bg-white shadow-sm p-6">
           <h2 className="text-xl font-bold">Recent Games</h2>
 
           <p className="text-gray-500 mt-3">Game history will appear here.</p>
-        </div>
-
-        <div className="rounded-4xl border bg-white shadow-sm p-6">
-          <h2 className="text-xl font-bold">Predictions</h2>
-
-          <p className="text-gray-500 mt-3">ML predictions will appear here.</p>
         </div>
       </div>
     </div>
