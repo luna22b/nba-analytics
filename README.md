@@ -1,6 +1,6 @@
-##  Statline - NBA Quick Statistics App
+## 🏀 Statline - NBA Quick Statistics App
 
-🏀 Statline is a web application that allows to quickly look at the most important statistics quickly
+Statline is a web application that allows to quickly look at the most important statistics quickly
 
 
 ## Technologies Used
@@ -53,3 +53,8 @@ npm run dev
 ```
 http://localhost:3000
 ```
+
+## Preview
+
+<img width="1338" height="1034" alt="Image" src="https://github.com/user-attachments/assets/cd30a937-2549-4ffd-a54f-afede3abc8a2" />
+<img width="1323" height="1306" alt="Image" src="https://github.com/user-attachments/assets/bfb318b5-e8bb-4a66-b0e6-af414101018b" />
