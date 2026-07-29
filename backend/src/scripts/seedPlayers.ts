@@ -30,11 +30,6 @@ async function main() {
         })
       : null;
 
-    console.log({
-      player: player.fullName,
-      teamId,
-    });
-
     await prisma.player.upsert({
       where: {
         id: player.id,
