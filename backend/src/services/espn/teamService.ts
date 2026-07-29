@@ -67,15 +67,17 @@ export async function fetchTeamStats(teams: any[]) {
   const stats = [];
 
   for (const team of teams) {
-    if (!team.statistics?.$ref) continue;
-
     try {
-      const res = await axios.get(team.statistics.$ref);
+      const res = await axios.get(
+        `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/${team.abbreviation.toLowerCase()}/statistics`,
+      );
 
       stats.push({
         teamId: team.id,
         data: res.data,
       });
+
+      console.log(`Fetched stats for ${team.name}`);
     } catch (err) {
       console.error(
         `Failed stats for ${team.name}:`,
@@ -83,7 +85,7 @@ export async function fetchTeamStats(teams: any[]) {
       );
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 500));
   }
 
   return stats;

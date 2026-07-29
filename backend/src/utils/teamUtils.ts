@@ -1,13 +1,15 @@
 export function extractTeamStats(stat: any) {
-  const offensive = stat.data.splits.categories.find(
+  const categories = stat.data.results.stats.categories;
+
+  const offensive = categories.find(
     (category: any) => category.name === "offensive",
   );
 
-  const defensive = stat.data.splits.categories.find(
+  const defensive = categories.find(
     (category: any) => category.name === "defensive",
   );
 
-  const general = stat.data.splits.categories.find(
+  const general = categories.find(
     (category: any) => category.name === "general",
   );
 

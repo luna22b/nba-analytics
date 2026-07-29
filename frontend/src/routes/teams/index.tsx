@@ -18,7 +18,7 @@ function RouteComponent() {
       <div className="text-4xl text-center mt-8">Teams</div>
 
       <div className="text-center mt-5 italic text-[oklch(0.5_0.015_260)]">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Browse Teams
       </div>
 
       <div className="w-11/12 mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 mt-15 rounded-xl">
