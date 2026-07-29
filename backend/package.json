@@ -19,9 +19,10 @@
   },
   "scripts": {
     "dev": "nodemon --exec tsx src/server.ts",
-    "sync:players": "tsx src/scripts/seedPlayers.ts",
-    "sync:teams": "tsx src/scripts/seedTeams.ts",
-    "sync:games": "tsx src/scripts/seedGames.ts",
+    "start": "tsx src/server.ts",
+    "seed:players": "tsx src/scripts/seedPlayers.ts",
+    "seed:teams": "tsx src/scripts/seedTeams.ts",
+    "seed:games": "tsx src/scripts/seedGames.ts",
     "postinstall": "prisma generate"
   }
 }
